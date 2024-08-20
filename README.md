@@ -1,6 +1,6 @@
 # KU Polls: Online Survey and Polling Application
 
-Welcome to the KU Polls project! This application enables users to participate in online polls and surveys. It is built using the Django framework.
+Welcome to the KU Polls project! This application enables users to create and participate in online polls and surveys. It is built using the Django framework.
 
 ## Project Overview
 
