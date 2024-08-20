@@ -20,6 +20,6 @@ To be added.
 
 For detailed documentation on the KU Polls project, please refer to the [Project Wiki](../../wiki/Home). This Wiki includes:
 
-- [Vision Statement](../../wiki/Vision%20Statement): Overview of the project's goals and purpose.
+- [Vision Statement](../../wiki/Vision%20and%20Scope): Overview of the project's goals and purpose.
 - [Requirements](../../wiki/Requirements): A comprehensive list of functional and non-functional requirements.
 - [Project Plan](../../wiki/Project%20Plan): A detailed plan outlining the project's development phases and schedule.
