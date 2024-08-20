@@ -63,10 +63,6 @@ staticfiles/
 # MacOS junk
 .DS_Store
 
-# Flask stuff:
-instance/
-.webassets-cache
-
 # Scrapy stuff:
 .scrapy
 
@@ -83,15 +79,6 @@ target/
 # IPython
 profile_default/
 ipython_config.py
-
-# pyenv
-.python-version
-
-# pipenv
-#Pipfile.lock
-
-# poetry
-#poetry.lock
 
 # pdm
 .pdm.toml
@@ -116,16 +103,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
 
 # mypy
 .mypy_cache/
