@@ -1,10 +1,10 @@
-# KU Polls: Online Survey and Polling Application
+## KU Polls: Online Survey and Polling Application
 
 Welcome to the KU Polls project! This application enables users to create and participate in online polls and surveys. It is built using the Django framework.
 
 ## Project Overview
 
-This application is developed as part of the [Individual Software Process](https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.th). It aims to offer additional features based on the [Django Tutorial Project](TODO-write-URL-of-the-django-tutorial-here).
+This application is developed as part of the [Individual Software Process](https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.th). It aims to offer additional features based on the [Django Tutorial Project](https://docs.djangoproject.com/en/5.1/intro/tutorial01/).
 
 ## Getting Started
 
