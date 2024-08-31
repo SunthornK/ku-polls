@@ -9,13 +9,16 @@ This application is developed as part of the [Individual Software Process](https
 ## Getting Started
 
 ### Installation
+- [Installation Guide](../../wiki/Installation): Step-by-step instructions to set up the KU Polls application.
 
-To be added.
 
 ### Running the Application
 
-To be added.
-
+1. **Start the Development Server:**
+   ```bash
+   python manage.py runserver
+2. **Access the Application:**
+   Open your web browser and go to http://127.0.0.1:8000/.
 ## Documentation
 
 For detailed documentation on the KU Polls project, please refer to the [Project Wiki](../../wiki/Home). This Wiki includes:
@@ -23,3 +26,6 @@ For detailed documentation on the KU Polls project, please refer to the [Project
 - [Vision Statement](../../wiki/Vision%20and%20Scope): Overview of the project's goals and purpose.
 - [Requirements](../../wiki/Requirements): A comprehensive list of functional and non-functional requirements.
 - [Project Plan](../../wiki/Project%20Plan): A detailed plan outlining the project's development phases and schedule.
+## Iteration plans
+- Iteration 1 [Plan](../../wiki/Iteration%201%20Plan) and [Task Board](https://github.com/users/SunthornK/projects/1/views/1)
+- Iteration 2 [Plan](../../wiki/Iteration%202%20Plan) and [Task Board](https://github.com/users/SunthornK/projects/1/views/3)
