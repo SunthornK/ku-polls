@@ -13,7 +13,17 @@ class Question(models.Model):
         pub_date (datetime): The date and time the question was published.
     """
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField("date published")
+    pub_date = models.DateTimeField("date published", default=timezone.now)
+    end_date = models.DateTimeField(null=True, blank=True)
+
+    def is_published(self):
+        return timezone.localtime(timezone.now()) >= self.pub_date
+
+    def can_vote(self):
+        now = timezone.localtime(timezone.now())
+        if self.end_date:
+            return self.end_date >= now >= self.pub_date
+        return now >= self.pub_date
 
     def was_published_recently(self):
         """Check if the question was published within the last 24 hours."""
