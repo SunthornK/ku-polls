@@ -57,6 +57,16 @@ class QuestionModelTests(TestCase):
         )
         self.assertFalse(future_question.can_vote())
 
+    def test_can_vote_with_future_end_date(self):
+        """Can vote if the current time is within the voting period and the end_date is in the future."""
+        now = timezone.now()
+        question_with_future_end_date = Question.objects.create(
+            question_text="Question with Future End Date",
+            pub_date=now - timezone.timedelta(days=2),
+            end_date=now + timezone.timedelta(days=1)
+        )
+        self.assertTrue(question_with_future_end_date.can_vote())
+
     def test_was_published_recently_with_future_question(self):
         """
         was_published_recently() returns False for questions whose pub_date
