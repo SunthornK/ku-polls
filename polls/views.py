@@ -24,7 +24,7 @@ class DetailView(generic.DetailView):
     object = Question
     template_name = "polls/detail.html"
 
-    def get_detail(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         try:
             self.object = get_object_or_404(Question, pk=kwargs['pk'])
         except Http404:
