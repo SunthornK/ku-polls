@@ -28,7 +28,7 @@ class DetailView(generic.DetailView):
         try:
             self.object = get_object_or_404(Question, pk=kwargs['pk'])
         except Http404:
-            messages.error(request, f"Poll with ID {kwargs['pk']} is not exist")
+            messages.error(request, f"Poll with ID {kwargs['pk']} does not exist")
             return redirect("polls:index")
         if not self.object.can_vote():
             messages.error(request, f"Poll number {self.object.pk} has ended, which is not available for voting.")
