@@ -17,9 +17,11 @@ class Question(models.Model):
     end_date = models.DateTimeField(null=True, blank=True)
 
     def is_published(self):
+        """Determines if the question has been published."""
         return timezone.localtime(timezone.now()) >= self.pub_date
 
     def can_vote(self):
+        """Determines if voting is currently allowed for this question."""
         now = timezone.localtime(timezone.now())
         if self.end_date:
             return self.end_date >= now >= self.pub_date
