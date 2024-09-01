@@ -58,7 +58,10 @@ class QuestionModelTests(TestCase):
         self.assertFalse(future_question.can_vote())
 
     def test_can_vote_with_future_end_date(self):
-        """Can vote if the current time is within the voting period and the end_date is in the future."""
+        """
+        Can vote if the current time is within the voting period
+        and the end_date is in the future.
+        """
         now = timezone.now()
         question_with_future_end_date = Question.objects.create(
             question_text="Question with Future End Date",
