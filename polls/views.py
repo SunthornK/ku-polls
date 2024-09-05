@@ -5,7 +5,8 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib import messages
-from .models import Choice, Question
+from .models import Choice, Question, Vote
+from django.contrib.auth.decorators import login_required
 
 
 class IndexView(generic.ListView):
@@ -22,7 +23,7 @@ class IndexView(generic.ListView):
 
 
 class DetailView(generic.DetailView):
-    """Displays the details of a specific poll question."""
+    """Displays the choices of a specific poll question and allow voting."""
     model = Question
     object = Question
     template_name = "polls/detail.html"
@@ -52,7 +53,7 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = "polls/results.html"
 
-
+@login_required()
 def vote(request, question_id):
     """Process a vote for a poll question."""
     question = get_object_or_404(Question, pk=question_id)
@@ -67,9 +68,19 @@ def vote(request, question_id):
                 "error_message": "You didn't select a choice.",
             },
         )
-    else:
-        selected_choice.votes = F("votes") + 1
-        selected_choice.save()
-        return HttpResponseRedirect(reverse("polls:results",
-                                            args=(question.id,)))
+    #Reference to the current user
+    user = request.user
 
+    # Get the user's vote
+    # Increment votes by creating or updating a Vote object, as you've done in your try/except block
+    try:
+        vote = user.vote_set.get(choice__question=question)
+        vote.choice = selected_choice
+        vote.save()
+        messages.success(request, f"Your vote was updated to '{selected_choice.choice_text}'")
+    except Vote.DoesNotExist:
+        Vote.objects.create(user=user, choice=selected_choice)
+        messages.success(request, f"Your vote for '{selected_choice.choice_text}' was recorded successfully")
+
+    # Redirect to the results page
+    return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
