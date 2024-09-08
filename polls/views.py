@@ -6,6 +6,33 @@ from django.utils import timezone
 from django.contrib import messages
 from .models import Choice, Question, Vote
 from django.contrib.auth.decorators import login_required
+import logging
+from django.contrib.auth.signals import user_logged_in, user_logged_out
+from django.dispatch import receiver
+
+logger = logging.getLogger('polls')
+
+
+@receiver(user_logged_in)
+def log_user_login(sender, request, user, **kwargs):
+    ip_addr = get_client_ip(request)
+    logger.info(f"{user.username} logged in from {ip_addr}")
+
+
+@receiver(user_logged_out)
+def log_user_logout(sender, request, user, **kwargs):
+    ip_addr = get_client_ip(request)
+    logger.info(f"{user.username} logged out from {ip_addr}")
+
+
+def get_client_ip(request):
+    """Get the visitor’s IP address using request headers."""
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 
 class IndexView(generic.ListView):
