@@ -4,3 +4,7 @@ li a {
 body {
     background: white url("images/background.png") no-repeat;
 }
+
+h1 {
+    color: #7faf4c;
+}
