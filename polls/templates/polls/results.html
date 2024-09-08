@@ -1,19 +1,25 @@
-<h1>Results for "{{ question.question_text }}"</h1>
+{% extends 'polls/base.html' %}
 
-<table>
-    <thead>
-        <tr>
-            <th>Choice</th>
-            <th>Votes</th>
-        </tr>
-    </thead>
-    <tbody>
+{% block title %}{{ question.question_text }} - Results{% endblock %}
+
+{% block content %}
+<div class="poll-results-container">
+    <h1>{{ question.question_text }}</h1>
+
+    <ul class="results-list">
     {% for choice in question.choice_set.all %}
-        <tr>
-            <td>{{ choice.choice_text }}</td>
-            <td>{{ choice.votes }}</td>
-        </tr>
+        <li class="result-item">
+            <span class="choice-text">{{ choice.choice_text }}</span>
+            <span class="vote-count">{{ choice.votes }} vote{{ choice.votes|pluralize }}</span>
+            <div class="vote-bar" style="width: {{ choice.percentage|floatformat:1 }}%;"></div>
+        </li>
     {% endfor %}
-    </tbody>
-</table>
-<p><a href="{% url 'polls:index' %}">Back to List of Polls</a></p>
+    </ul>
+
+    <p>Total votes: {{ total_votes }}</p>
+
+    <div class="action-links">
+        <a href="{% url 'polls:index' %}" class="action-button">Back to Poll List</a>
+    </div>
+</div>
+{% endblock %}

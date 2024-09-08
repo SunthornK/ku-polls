@@ -1,6 +1,276 @@
-li a {
-    color: BlanchedAlmond;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
 }
+
 body {
-    background: white url("images/background.png") no-repeat;
+  height: 100vh;
+  background-color: olive;
+  background-image: url("images/green-transformed.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+
+li{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+  color: #fff;
+  font-size: 1rem;
+}
+
+a:hover{
+  color: orange;
+}
+/* Header*/
+header{
+  position: relative;
+  padding: 0 2rem;
+}
+
+.navbar{
+  width: 100%;
+  height: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar .logo a{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar .links{
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar .toggle_btn{
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: none;
+}
+
+.action_btn{
+  background-color: orange;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+}
+
+.action_btn:hover{
+  scale: 1.05;
+  color: #fff;
+}
+
+.action_btn:active{
+scale: 0.95;
+}
+/* Polls Index Page Styles */
+.polls-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.polls-container h1 {
+    color: snow;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.poll-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.poll-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.poll-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    flex-grow: 1;
+}
+
+.poll-link:hover {
+    color: #4CAF50;
+}
+
+.results-link {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.results-link:hover {
+    background-color: #45a049;
+}
+
+.no-polls-message {
+    text-align: center;
+    color: snow;
+    font-style: italic;
+}
+
+/* Responsive design */
+@media screen and (max-width: 600px) {
+    .poll-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .results-link {
+        margin-top: 10px;
+    }
+}
+/* Common styles for detail and results pages */
+.poll-detail-container,
+.poll-results-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: snow;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Styles for detail.html */
+.error-message {
+    color: #e74c3c;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.vote-form fieldset {
+    border: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.vote-form legend {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.choice-option {
+    margin-bottom: 10px;
+}
+
+.choice-option label {
+    color: #fff;
+}
+
+.vote-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.vote-button:hover {
+    background-color: #2980b9;
+}
+
+/* Styles for results.html */
+.results-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.result-item {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.choice-text {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.vote-count {
+    font-size: 0.9em;
+    color: #ecf0f1;
+}
+
+.vote-bar {
+    height: 20px;
+    background-color: #3498db;
+    border-radius: 10px;
+}
+
+.action-links {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.action-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 0 10px;
+    transition: background-color 0.3s;
+}
+
+.action-button:hover {
+    background-color: #2980b9;
+}
+
+/* Responsive design */
+@media screen and (max-width: 600px) {
+    .poll-detail-container,
+    .poll-results-container {
+        padding: 10px;
+    }
+
+    .poll-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .results-link {
+        margin-top: 10px;
+    }
 }
