@@ -29,6 +29,8 @@ For detailed documentation on the KU Polls project, please refer to the [Project
 - [Vision Statement](../../wiki/Vision%20and%20Scope): Overview of the project's goals and purpose.
 - [Requirements](../../wiki/Requirements): A comprehensive list of functional and non-functional requirements.
 - [Project Plan](../../wiki/Project%20Plan): A detailed plan outlining the project's development phases and schedule.
+- [Domain Model](../../wiki/Domain%20Model): Represents the domain and its concepts in a visual format.
 ## Iteration plans
 - Iteration 1 [Plan](../../wiki/Iteration%201%20Plan) and [Task Board](https://github.com/users/SunthornK/projects/1/views/1)
 - Iteration 2 [Plan](../../wiki/Iteration%202%20Plan) and [Task Board](https://github.com/users/SunthornK/projects/1/views/3)
+- Iteration 3 [Plan](../../wiki/Iteration%203%20Plan) and [Task Board](https://github.com/users/SunthornK/projects/1/views/4)

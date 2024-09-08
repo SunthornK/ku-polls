@@ -53,6 +53,7 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = "polls/results.html"
 
+
 @login_required()
 def vote(request, question_id):
     """Process a vote for a poll question."""
@@ -68,7 +69,7 @@ def vote(request, question_id):
                 "error_message": "You didn't select a choice.",
             },
         )
-    #Reference to the current user
+    # Reference to the current user
     user = request.user
 
     # Get the user's vote
