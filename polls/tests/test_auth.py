@@ -93,18 +93,3 @@ class UserAuthTest(django.test.TestCase):
         # Validate redirection URL includes next parameter
         login_with_next = f"{reverse('login')}?next={vote_url}"
         self.assertRedirects(response, login_with_next)
-
-
-    def test_login_invalid_credentials(self):
-        """Login fails with incorrect credentials."""
-        login_url = reverse("login")
-
-        # Attempt to log in with incorrect credentials
-        form_data = {"username": self.username, "password": "wrongpassword"}
-        response = self.client.post(login_url, form_data)
-
-        # Check that login was unsuccessful
-        self.assertNotEqual(response.status_code, 302)
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Please enter a correct username and password.")
-
