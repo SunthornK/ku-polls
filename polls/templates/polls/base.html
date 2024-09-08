@@ -2,40 +2,44 @@
 <html lang="en">
 <head>
     {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}KU Polls{% endblock %}</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="{% static 'polls/style.css' %}">
-    {% block extra_css %}{% endblock %}
+    <title>{% block title %}KU Polls{% endblock %}</title>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>KU Polls</h1>
-            {% if user.is_authenticated %}
-                <p>Welcome back, {{ user.username }}</p>
-                <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Log Out</button>
-                </form>
-            {% else %}
-                <p>Please <a href="{% url 'login' %}?next={{ request.path }}">Login</a></p>
-            {% endif %}
+<header>
+    <div class="navbar">
+        <div class="logo">
+            <a class="active" href="{% url 'polls:index' %}">KU Polls</a>
         </div>
-    </header>
 
-    <main>
-        {% block content %}
-        <!-- Page-specific content will go here -->
-        {% endblock %}
-    </main>
-
-    <footer>
-        <div class="container">
-            <!-- You can add footer content here -->
-            <p>&copy; 2024 KU Polls</p>
+        {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="action_btn">Logout</button>
+        </form>
+        {% else %}
+        <a href="{% url 'login' %}" class="action_btn">Login</a>
+        {% endif %}
+        <div class="toggle_btn">
+            <i class="fa-solid fa-bars"></i>
         </div>
-    </footer>
-    {% block extra_js %}{% endblock %}
+    </div>
+</header>
+
+<main>
+    {% block content %}
+
+    {% endblock %}
+</main>
+
 </body>
 </html>
