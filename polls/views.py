@@ -80,7 +80,7 @@ class ResultsView(generic.DetailView):
     template_name = "polls/results.html"
 
 
-@login_required()
+@login_required
 def vote(request, question_id):
     """Process a vote for a poll question."""
     question = get_object_or_404(Question, pk=question_id)
@@ -99,7 +99,6 @@ def vote(request, question_id):
     user = request.user
 
     # Get the user's vote
-    # Increment votes by creating or updating a Vote object, as you've done in your try/except block
     try:
         vote = user.vote_set.get(choice__question=question)
         vote.choice = selected_choice
@@ -108,6 +107,9 @@ def vote(request, question_id):
     except Vote.DoesNotExist:
         Vote.objects.create(user=user, choice=selected_choice)
         messages.success(request, f"Your vote for '{selected_choice.choice_text}' was recorded successfully")
+
+    # Log the vote submission
+    logger.info(f"User '{user.username}' submitted a vote for question ID {question_id}, choice ID {selected_choice.id}")
 
     # Redirect to the results page
     return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
