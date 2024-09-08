@@ -8,6 +8,9 @@
   </table>
   <p>
   <button type="submit">Login</button>
+      <button class="login-button" type="button"
+                        onclick="location.href='{% url 'polls:index' %}'">view
+                    as guest</button>
   </p>
   <input type="hidden" name="next" value="{{next}}"/>
  </form>
