@@ -7,7 +7,7 @@ from django.contrib import messages
 from .models import Choice, Question, Vote
 from django.contrib.auth.decorators import login_required
 import logging
-from django.contrib.auth.signals import user_logged_in, user_logged_out
+from django.contrib.auth.signals import user_logged_in, user_logged_out, user_login_failed
 from django.dispatch import receiver
 
 logger = logging.getLogger('polls')
@@ -23,6 +23,13 @@ def log_user_login(sender, request, user, **kwargs):
 def log_user_logout(sender, request, user, **kwargs):
     ip_addr = get_client_ip(request)
     logger.info(f"{user.username} logged out from {ip_addr}")
+
+
+@receiver(user_login_failed)
+def log_login_failed(sender, request, credentials, **kwargs):
+    ip_addr = get_client_ip(request)
+    username = credentials.get('username', 'unknown')
+    logger.warning(f"Failed login attempt for {username} from {ip_addr}")
 
 
 def get_client_ip(request):
@@ -85,20 +92,13 @@ def vote(request, question_id):
     """Process a vote for a poll question."""
     question = get_object_or_404(Question, pk=question_id)
     try:
-        selected_choice = question.choice_set.get(pk=request.POST["choice"])
-    except (KeyError, Choice.DoesNotExist):
-        return render(
-            request,
-            "polls/detail.html",
-            {
-                "question": question,
-                "error_message": "You didn't select a choice.",
-            },
-        )
-    # Reference to the current user
+        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    except Choice.DoesNotExist:
+        messages.error(request, "Choice does not exist.")
+        return redirect('polls:detail', question_id=question.id)
+
     user = request.user
 
-    # Get the user's vote
     try:
         vote = user.vote_set.get(choice__question=question)
         vote.choice = selected_choice
@@ -109,7 +109,8 @@ def vote(request, question_id):
         messages.success(request, f"Your vote for '{selected_choice.choice_text}' was recorded successfully")
 
     # Log the vote submission
-    logger.info(f"User '{user.username}' submitted a vote for question ID {question_id}, choice ID {selected_choice.id}")
+    logger.info(
+        f"User '{user.username}' submitted a vote for question ID {question_id}, choice ID {selected_choice.id}")
 
     # Redirect to the results page
     return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
