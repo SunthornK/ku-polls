@@ -1,5 +1,4 @@
-![Workflow Status](https://github.com/SunthornK/ku-polls/actions/workflows/main.yml/badge.svg)
-
+[![Django CI](https://github.com/SunthornK/ku-polls/actions/workflows/main.yml/badge.svg)](https://github.com/SunthornK/ku-polls/actions/workflows/main.yml)
 
 ## KU Polls: Online Survey and Polling Application
 
