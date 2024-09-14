@@ -71,7 +71,7 @@ class DetailView(generic.DetailView):
             return redirect("polls:index")
         if not self.object.can_vote():
             messages.error(request,
-                           f"Poll number {self.object.pk} has ended, "
+                           f"Dorry, Poll number {self.object.pk} has ended, "
                            f"which is not available for voting.")
             return redirect("polls:index")
         if not self.object.is_published():
@@ -90,12 +90,30 @@ class ResultsView(generic.DetailView):
 @login_required
 def vote(request, question_id):
     """Process a vote for a poll question."""
+    # Get the question or return a 404 error if not found
     question = get_object_or_404(Question, pk=question_id)
+    ip = get_client_ip(request)
+    this_user = request.user
+    logger = logging.getLogger("polls")
+    logger.info(f"{this_user} logged in from {ip}")
+
+    # Check if the 'choice' key is present in POST data
+    selected_choice_id = request.POST.get('choice')
+    if not question.can_vote():
+        messages.error(request, f"Poll number {question.id} is not available to vote")
+        logger.warning(f"{this_user} failed to vote for {question} from {ip}")
+        return redirect("polls:index")
+    if not selected_choice_id:
+        # No choice selected
+        messages.error(request, "You must select a choice first.")
+        return redirect('polls:detail', pk=question_id)
+
     try:
-        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+        # Get the selected choice or return an error if not found
+        selected_choice = question.choice_set.get(pk=selected_choice_id)
     except Choice.DoesNotExist:
         messages.error(request, "Choice does not exist.")
-        return redirect('polls:detail', question_id=question.id)
+        return redirect('polls:detail', pk=question_id)
 
     user = request.user
 
@@ -109,8 +127,8 @@ def vote(request, question_id):
         messages.success(request, f"Your vote for '{selected_choice.choice_text}' was recorded successfully")
 
     # Log the vote submission
-    logger.info(
-        f"User '{user.username}' submitted a vote for question ID {question_id}, choice ID {selected_choice.id}")
+    logger = logging.getLogger("polls")
+    logger.info(f"User '{user.username}' submitted a vote for question ID {question_id}, choice ID {selected_choice.id}")
 
     # Redirect to the results page
-    return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+    return HttpResponseRedirect(reverse("polls:results", args=(question_id,)))
