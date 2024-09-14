@@ -26,6 +26,18 @@ class Question(models.Model):
         """
         return timezone.localtime(timezone.now()) >= self.pub_date
 
+    def get_status(self):
+        """
+        Returns the status of the poll (open, closed, or upcoming).
+
+        Returns:
+            str: 'Open', 'Closed', or 'Upcoming' based on the poll's publication and end dates.
+        """
+        now = timezone.localtime(timezone.now())
+        if self.end_date and now > self.end_date:
+            return 'Closed'
+        return 'Open'
+
     def can_vote(self):
         """
         Determine if voting is currently allowed for this question.

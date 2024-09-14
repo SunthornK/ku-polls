@@ -6,9 +6,15 @@
 <div class="poll-detail-container">
     <h1>{{ question.question_text }}</h1>
 
-    {% if error_message %}
-        <p class="error-message">{{ error_message }}</p>
-    {% endif %}
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 
     <form action="{% url 'polls:vote' question.id %}" method="post" class="vote-form">
         {% csrf_token %}

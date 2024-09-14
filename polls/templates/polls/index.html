@@ -6,6 +6,16 @@
     <div class="polls-container">
         <h1>Available Polls</h1>
 
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
         {% if latest_question_list %}
             <ul class="poll-list">
                 {% for question in latest_question_list %}
@@ -16,6 +26,8 @@
                         <a href="{% url 'polls:results' question.id %}" class="results-link">
                             Results
                         </a>
+                        Status: <span class="status-indicator {{ question.get_status }}"></span>
+                        <span>{{ question.get_status|title }}</span>
                     </li>
                 {% endfor %}
             </ul>

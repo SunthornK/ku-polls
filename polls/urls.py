@@ -1,6 +1,11 @@
+"""
+URL configuration for the Polls application.
+
+This module defines the URL patterns for the Polls app, mapping URLs to views
+for displaying polls, showing details, voting, and viewing results.
+"""
 from django.urls import path
 from django.views.generic.base import RedirectView
-from django.contrib.auth import views as auth_views
 from . import views
 
 app_name = "polls"
