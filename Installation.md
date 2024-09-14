@@ -13,7 +13,7 @@ cd ku-polls
 ## 2. Set Up a Virtual Environment
 Set up a Python virtual environment in your project folder and activate it:
 ```bash
-python -m venv venv
+python3 -m venv venv # On Windows use python -m venv venv
 source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 ```
 
@@ -46,12 +46,14 @@ To load demo data (such as users and poll questions), use the following command:
    #This will load poll questions and their choices
    python manage.py loaddata data/polls-v4.json
    
-2. Votes: 
+2. Users: 
+   ```bash
+   #This will load the user accounts
+   python manage.py loaddata data/users.json
+   
+3. Votes: 
    ```bash
    #This will load the vote data
    python manage.py loaddata data/votes-v4.json
    
-3. Users: 
-   ```bash
-   #This will load the user accounts
-   python manage.py loaddata data/users.json
+[Back to README.md](./README.md)
