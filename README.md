@@ -1,6 +1,5 @@
+## KU Polls Online Survey and Polling Application
 [![Django CI](https://github.com/SunthornK/ku-polls/actions/workflows/main.yml/badge.svg)](https://github.com/SunthornK/ku-polls/actions/workflows/main.yml)
-
-## KU Polls: Online Survey and Polling Application
 
 Welcome to the KU Polls project! This application enables users to create and participate in online polls and surveys. It is built using the Django framework.
 
@@ -11,17 +10,29 @@ This application is developed as part of the [Individual Software Process](https
 ## Getting Started
 
 ### Installation
-- [Installation Guide](../../wiki/Installation): Step-by-step instructions to set up the KU Polls application.
+- [Installation Guide](./Installation.md): Step-by-step instructions to set up the KU Polls application.
 
 
 ### Running the Application
+Once you have completed the installation and setup, you can start the application by following these steps:
 
-1. **Start the Development Server:**
+1. **Start the Server:**
    ```bash
    python manage.py runserver
 2. **Access the Application:**
    Open your web browser and go to http://127.0.0.1:8000/.
-## Documentation
+3. **Stopping the Server:** To stop the server, press Ctrl+C in the terminal where the server is running.
+
+## Demo Users
+| Username | Password |
+|----------|----------|
+| demo1    | hackme11 |
+| demo2    | hackme22 |
+| demo3    | hackme33 |
+
+Use these credentials to log in the application.
+
+## Project Documents
 
 For detailed documentation on the KU Polls project, please refer to the [Project Wiki](../../wiki/Home). This Wiki includes:
 
@@ -33,3 +44,4 @@ For detailed documentation on the KU Polls project, please refer to the [Project
 - Iteration 1 [Plan](../../wiki/Iteration%201%20Plan) and [Task Board](https://github.com/users/SunthornK/projects/1/views/1)
 - Iteration 2 [Plan](../../wiki/Iteration%202%20Plan) and [Task Board](https://github.com/users/SunthornK/projects/1/views/3)
 - Iteration 3 [Plan](../../wiki/Iteration%203%20Plan) and [Task Board](https://github.com/users/SunthornK/projects/1/views/4)
+- Iteration 3 [Plan](../../wiki/Iteration%204%20Plan) and [Task Board](https://github.com/users/SunthornK/projects/1/views/5)
