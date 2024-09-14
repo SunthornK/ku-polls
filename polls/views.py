@@ -81,14 +81,32 @@ class DetailView(generic.DetailView):
             return redirect("polls:index")
         if not self.object.can_vote():
             messages.error(request,
-                           f"Dorry, Poll number {self.object.pk} has ended, "
+                           f"Sorry, Poll number {self.object.pk} has ended, "
                            f"which is not available for voting.")
             return redirect("polls:index")
         if not self.object.is_published():
             messages.error(request,
                            f"Poll number {self.object.pk} is not available")
             return redirect("polls:index")
+        if self.request.user.is_authenticated:
+            context = self.get_context_data()
+            return render(request, "polls/detail.html", context=context)
         return render(request, self.template_name, {"question": self.object})
+
+    def get_context_data(self, **kwargs):
+        """
+        Get the context data for the view.
+        """
+        context = super().get_context_data(**kwargs)
+        self.object = self.get_object()
+        vote = None
+        if self.request.user.is_authenticated:
+            try:
+                vote = Vote.objects.get(user=self.request.user, choice__question=self.object)
+            except Vote.DoesNotExist:
+                vote = None
+        context["vote"] = vote
+        return context
 
 
 class ResultsView(generic.DetailView):

@@ -14,7 +14,7 @@
             </div>
         {% endfor %}
     </div>
-{% endif %}
+    {% endif %}
 
     <form action="{% url 'polls:vote' question.id %}" method="post" class="vote-form">
         {% csrf_token %}
@@ -22,9 +22,9 @@
             <legend>Select your choice:</legend>
             {% for choice in question.choice_set.all %}
                 <div class="choice-option">
-                    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"
-                        {% if user_vote == choice %}checked{% endif %}>
-                    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"
+            {% if vote.choice_id == choice.id %}checked{% endif %}>
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
                 </div>
             {% endfor %}
         </fieldset>
