@@ -16,6 +16,8 @@
                         <a href="{% url 'polls:results' question.id %}" class="results-link">
                             Results
                         </a>
+                        Status: <span class="status-indicator {{ question.get_status }}"></span>
+                        <span>{{ question.get_status|title }}</span>
                     </li>
                 {% endfor %}
             </ul>
