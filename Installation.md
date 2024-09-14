@@ -49,7 +49,7 @@ To load demo data (such as users and poll questions), use the following command:
 2. Votes: 
    ```bash
    #This will load the vote data
-   python manage.py loaddata data/polls-v4.json
+   python manage.py loaddata data/votes-v4.json
    
 3. Users: 
    ```bash
