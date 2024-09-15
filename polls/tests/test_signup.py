@@ -35,7 +35,7 @@ class UserSignupTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
         # Ensure the user was created in the database
-        self.assertTrue(User.objects.filter(username='newuser').exists())
+        self.assertTrue(User.objects.filter(username='test_user').exists())
 
     def test_signup_form_password_mismatch(self):
         """Test handling of password mismatch in the signup form."""
@@ -49,4 +49,4 @@ class UserSignupTest(TestCase):
         response = self.client.post(url, data=user_data)
         # Ensure the form did not validate and user was not created
         self.assertEqual(response.status_code, 200)
-        self.assertFalse(User.objects.filter(username='newuser').exists())
+        self.assertFalse(User.objects.filter(username='test_user').exists())
