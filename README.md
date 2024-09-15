@@ -1,5 +1,5 @@
 ## KU Polls Online Survey and Polling Application
-[![Django CI](https://github.com/SunthornK/ku-polls/actions/workflows/main.yml/badge.svg)](https://github.com/SunthornK/ku-polls/actions/workflows/main.yml)
+[![Django CI](https://github.com/SunthornK/ku-polls/actions/workflows/main.yml/badge.svg)](https://github.com/SunthornK/ku-polls/actions/workflows/main.yml)[![Run Flake8](https://github.com/SunthornK/ku-polls/actions/workflows/style-checking.yml/badge.svg)](https://github.com/SunthornK/ku-polls/actions/workflows/style-checking.yml)
 
 Welcome to the KU Polls project! This application enables users to create and participate in online polls and surveys. It is built using the Django framework.
 
