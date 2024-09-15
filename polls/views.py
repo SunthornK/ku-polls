@@ -94,15 +94,14 @@ class DetailView(generic.DetailView):
         return render(request, self.template_name, {"question": self.object})
 
     def get_context_data(self, **kwargs):
-        """
-        Get the context data for the view.
-        """
+        """Get the context data for the view."""
         context = super().get_context_data(**kwargs)
         self.object = self.get_object()
         vote = None
         if self.request.user.is_authenticated:
             try:
-                vote = Vote.objects.get(user=self.request.user, choice__question=self.object)
+                vote = Vote.objects.get(user=self.request.user,
+                                        choice__question=self.object)
             except Vote.DoesNotExist:
                 vote = None
         context["vote"] = vote
@@ -151,11 +150,14 @@ def vote(request, question_id):
         vote = user.vote_set.get(choice__question=question)
         vote.choice = selected_choice
         vote.save()
-        messages.success(request, f"Your vote was updated to '{selected_choice.choice_text}'")
+        messages.success(request,
+                         f"Your vote was updated to "
+                         f"'{selected_choice.choice_text}'")
     except Vote.DoesNotExist:
         Vote.objects.create(user=user, choice=selected_choice)
         messages.success(request,
-                f"Your vote for '{selected_choice.choice_text}'was recorded")
+                         f"Your vote for "
+                         f"'{selected_choice.choice_text}'was recorded")
     # Log the vote submission
     logger = logging.getLogger("polls")
     logger.info(f"User '{user.username}' submitted a vote for question ID "

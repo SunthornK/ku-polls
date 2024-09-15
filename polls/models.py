@@ -1,5 +1,16 @@
-import datetime
+"""
+Defines models for a polling application.
 
+Includes:
+- `Question`: Represents a poll question with text, publication date, and
+  end date. Provides methods for checking publication status, voting
+  eligibility, and recent publication.
+- `Choice`: Represents a possible answer to a poll question. Includes a
+  property to count the number of votes.
+- `Vote`: Represents a vote by a user for a choice in a poll question.
+"""
+
+import datetime
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
@@ -13,25 +24,28 @@ class Question(models.Model):
         question_text (str): The text of the question.
         pub_date (datetime): The date and time the question was published.
     """
+
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published", default=timezone.now)
-    end_date = models.DateTimeField("end date", null=True, blank=True, default=None)
+    end_date = models.DateTimeField("end date", null=True,
+                                    blank=True, default=None)
 
     def is_published(self):
         """
         Determine if the question has been published.
 
         Returns:
-            bool: True if the current time is after or equal to the publication date, False otherwise.
+            bool: True if the current time is after or equal
+             to the publication date, False otherwise.
         """
         return timezone.localtime(timezone.now()) >= self.pub_date
 
     def get_status(self):
         """
-        Returns the status of the poll (open, closed, or upcoming).
+        Return whether the status of the poll is open or closed.
 
         Returns:
-            str: 'Open', 'Closed', or 'Upcoming' based on the poll's publication and end dates.
+            str: 'Open', 'Closed' based on the poll's publication.
         """
         now = timezone.localtime(timezone.now())
         if self.end_date and now > self.end_date:
@@ -43,7 +57,7 @@ class Question(models.Model):
         Determine if voting is currently allowed for this question.
 
         Returns:
-            bool: True if voting is allowed (i.e., the current time is within the voting period), False otherwise.
+            bool: True if voting is allowed, False otherwise.
         """
         now = timezone.localtime(timezone.now())
         if self.end_date:
@@ -62,13 +76,13 @@ class Question(models.Model):
 
 class Choice(models.Model):
     """A possible answer to a poll question."""
+
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
 
-    # votes = models.IntegerField(default=0)
-
     @property
     def votes(self):
+        """Getter for the number of votes."""
         return self.vote_set.count()
 
     def __str__(self):
@@ -78,5 +92,6 @@ class Choice(models.Model):
 
 class Vote(models.Model):
     """A vote by a user for a choice in a poll question."""
+
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

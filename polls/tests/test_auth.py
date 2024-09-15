@@ -1,22 +1,26 @@
-"""Tests of user authentication.
+"""
+Tests of user authentication.
 
-   Put this file in a subdirectory of your ku-polls project,
-   for example, a directory named "auth".
-   Then run: manage.py test auth
+This module contains tests related to user authentication
+and access control for voting functionality. The tests ensure that:
+    - Users can log in and are redirected appropriately.
+    - Users can log out and are redirected to the login page.
+    - Authentication is required to submit a vote.
 
 """
 import django.test
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate  # to "login" a user using code
+from django.contrib.auth import authenticate
 from polls.models import Question, Choice
 from core import settings
 
 
 class UserAuthTest(django.test.TestCase):
+    """Tests for user authentication."""
 
     def setUp(self):
-        # superclass setUp creates a Client object and initializes test database
+        """For setting up the tests."""
         super().setUp()
         self.username = "testuser"
         self.password = "FatChance!"
@@ -93,3 +97,18 @@ class UserAuthTest(django.test.TestCase):
         # Validate redirection URL includes next parameter
         login_with_next = f"{reverse('login')}?next={vote_url}"
         self.assertRedirects(response, login_with_next)
+
+    def test_user_authentication(self):
+        """
+        Test that `authenticate` correctly identifies a user with valid.
+
+        Ensures that `authenticate` returns a valid user object with the
+        correct username and password.
+        """
+        user = authenticate(username=self.username, password=self.password)
+        self.assertIsNotNone(user,
+                             "User should be authenticated successfully.")
+        self.assertEqual(user.username, self.username,
+                         "Authenticated user's username should match.")
+        self.assertTrue(user.check_password(self.password),
+                        "User's password should be correct.")
