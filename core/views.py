@@ -6,19 +6,22 @@ from django.contrib.auth.forms import UserCreationForm
 def signup(request):
     """Register a new user."""
     if request.method == 'POST':
+        print("POST data:", request.POST)
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            # get named fields from the form data
+            user = form.save()
             username = form.cleaned_data.get('username')
-            # password input field is named 'password1'
-            raw_passwd = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_passwd)
-            login(request, user)
-        return redirect('polls:index')
-        # what if form is not valid?
-        # we should display a message in signup.html
+            password = form.cleaned_data.get('password1')
+            print(f"User created: {username}")
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                print(f"Authenticated user: {user}")
+                login(request, user)
+                return redirect('polls:index')
+            else:
+                print("Authentication failed")
+        else:
+            print("Form errors:", form.errors)
     else:
-        # create a user form and display it the signup page
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
