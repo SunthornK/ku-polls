@@ -1,0 +1,32 @@
+[run]
+# Measure branch coverage
+branch = True
+
+# Don't measure Python standard library
+cover_pylib = False
+
+source =
+    polls
+
+# Omit uninteresting files and directories
+omit =
+    __init__.py
+    /usr/*           # Linux location of Python libraries
+
+    # Package __init__.py files
+    */__init__.py
+
+    # Django migration files
+    */migrations/*
+
+    # Project configuration files and manage.py script
+    core/*
+    manage.py
+
+    manage.py
+[report]
+# Exclude specific lines from coverage report
+exclude_lines =
+    # Ignore __str__ and __repr__ methods
+    def __str__
+    def __repr__
