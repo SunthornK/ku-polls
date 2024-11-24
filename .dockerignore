@@ -1,0 +1,9 @@
+.git
+.venv
+venv
+.github
+settings.ini
+db.sqlite3
+!entrypoint.sh
+*.ps1
+__pycache__
